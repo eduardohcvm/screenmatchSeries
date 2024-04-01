@@ -27,5 +27,14 @@ public class ScreenmatchSeriesApplication implements CommandLineRunner {
 		ConsumoAPI api = new ConsumoAPI();
 		String json = api.obterDados(endereco);
 		System.out.println(json);
+
+		/*
+		// API de fotos de cafe aleatorias
+		json = api.obterDados("https://coffee.alexflipnote.dev/random.json");
+		System.out.println(json);
+		*/
+
+
 	}
+
 }
