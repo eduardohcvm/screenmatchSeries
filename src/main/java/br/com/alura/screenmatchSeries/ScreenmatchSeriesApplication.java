@@ -1,6 +1,9 @@
 package br.com.alura.screenmatchSeries;
 
+
+import br.com.alura.screenmatchSeries.model.DadosSerie;
 import br.com.alura.screenmatchSeries.services.ConsumoAPI;
+import br.com.alura.screenmatchSeries.services.ConverteDados;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -27,6 +30,13 @@ public class ScreenmatchSeriesApplication implements CommandLineRunner {
 		ConsumoAPI api = new ConsumoAPI();
 		String json = api.obterDados(endereco);
 		System.out.println(json);
+
+
+		ConverteDados conversor = new ConverteDados(); // cria um conversor de converter dados
+		DadosSerie dados = conversor.obterDados(json,DadosSerie.class); // cria uma instancia chamada dados e aplicar o
+		// conversor chamando o obter dados, passando os parametros para a interface  sendo o json e a classe DadosSerie
+		System.out.println(dados);
+
 
 		/*
 		// API de fotos de cafe aleatorias
