@@ -1,0 +1,1 @@
+Aplicação em Java para gerenciador de Series, Intuito é com que consumindo a API consiga ter todos os dados das series e implementando no front-end para exibir a serie junto com o poster e as avaliações
