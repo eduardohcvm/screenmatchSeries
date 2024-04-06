@@ -26,7 +26,9 @@ public class ScreenmatchSeriesApplication implements CommandLineRunner {
 
 		System.out.println("Digite o nome da serie que voce gostaria de pesquisar: ");
 		var busca = leitura.nextLine();
-		String endereco = "https://www.omdbapi.com/?t=" + busca.replace(" ", "+") + "&apikey=825f193a";
+		System.out.println("Digite a temporada: ");
+		var temporada = leitura.nextInt();
+		String endereco = "https://www.omdbapi.com/?t=" + busca.replace(" ", "+") + "&season=" + temporada +"&apikey=825f193a";
 		ConsumoAPI api = new ConsumoAPI();
 		String json = api.obterDados(endereco);
 		System.out.println(json);
