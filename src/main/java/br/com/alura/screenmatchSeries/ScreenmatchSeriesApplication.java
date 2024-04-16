@@ -25,8 +25,20 @@ public class ScreenmatchSeriesApplication implements CommandLineRunner {
 		Scanner leitura = new Scanner(System.in);
 
 		Resultado result = getResultado(leitura);
+		System.out.println("Apartir desta seria você gostaria de exibir uma temporada e episodio específico ou listar" +
+				" todas as temporadas  e episódios?:\n Digite 1 para o primeiro ou 2 para o segundo: ");
 
-	 	ExibirMenu.exibirTemporadaEEpisodio(leitura, exibirMenu, result);
+		int opcao = leitura.nextInt();
+		String buffer = leitura.nextLine();
+
+		switch (opcao){
+			case 1:
+				ExibirMenu.exibirTemporadaEEpisodio(leitura, exibirMenu, result);
+				break;
+			default: throw new IllegalStateException("Unexpected value: " + leitura);
+        }
+
+
 
 		/*
 		// API de fotos de cafe aleatorias
