@@ -1,8 +1,11 @@
 package br.com.alura.screenmatchSeries.services;
 
+import br.com.alura.screenmatchSeries.ScreenmatchSeriesApplication;
 import br.com.alura.screenmatchSeries.model.DadosEpisodios;
 import br.com.alura.screenmatchSeries.model.DadosSerie;
 import br.com.alura.screenmatchSeries.model.DadosTemporada;
+
+import java.util.Scanner;
 
 public class ExibirMenu {
     public static void buscarEpisodio(String busca, int temporada, int episodio, ConsumoAPI api, ConverteDados conversor) {
@@ -36,4 +39,18 @@ public class ExibirMenu {
         System.out.println(dados);
         return conversor;
     }
+
+    public static void exibirTemporadaEEpisodio(Scanner leitura, ExibirMenu exibirMenu, ScreenmatchSeriesApplication.Resultado result) {
+        System.out.println("Digite a temporada: ");
+        var temporada = leitura.nextInt();
+        ConverteDados conversor = exibirMenu.getConverteDados(result.busca(), temporada, result.api());
+        exibirMenu.buscarTemporada(result.busca(),temporada, result.api(),conversor);
+
+        System.out.println("Digite o episodio em que voce gostaria de analisar: ");
+        var episodio = leitura.nextInt();
+        exibirMenu.buscarEpisodio(result.busca(), temporada, episodio, result.api(), conversor);
+    }
+
+
+
 }
