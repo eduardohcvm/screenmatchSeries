@@ -1,6 +1,7 @@
 package br.com.alura.screenmatchSeries;
 
 
+import br.com.alura.screenmatchSeries.model.DadosTemporada;
 import br.com.alura.screenmatchSeries.services.ConsumoAPI;
 import br.com.alura.screenmatchSeries.services.ExibirMenu;
 import org.springframework.boot.CommandLineRunner;
@@ -8,6 +9,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 @SpringBootApplication
@@ -25,11 +28,14 @@ public class ScreenmatchSeriesApplication implements CommandLineRunner {
 		Scanner leitura = new Scanner(System.in);
 
 		Resultado result = getResultado(leitura);
-		System.out.println("Apartir desta seria você gostaria de exibir uma temporada e episodio específico ou listar" +
+		System.out.println("Apartir desta serie você gostaria de exibir uma temporada e episodio específico ou listar" +
 				" todas as temporadas  e episódios?:\n Digite 1 para o primeiro ou 2 para o segundo: ");
 
 		int opcao = leitura.nextInt();
 		String buffer = leitura.nextLine();
+
+
+
 
 		switch (opcao){
 			case 1:
@@ -60,8 +66,8 @@ public class ScreenmatchSeriesApplication implements CommandLineRunner {
 		ConsumoAPI api = new ConsumoAPI();
 		String json = api.obterDados(endereco);
 		System.out.println(json);
-		Resultado result = new Resultado(busca, api);
-		return result;
+
+		return new Resultado(busca, api);
 	}
 
 	public record Resultado(String busca, ConsumoAPI api) {
