@@ -41,6 +41,10 @@ public class ScreenmatchSeriesApplication implements CommandLineRunner {
 			case 1:
 				ExibirMenu.exibirTemporadaEEpisodio(leitura, exibirMenu, result);
 				break;
+
+			case 2:
+				ExibirMenu.exibirMelhoresEpisodios(leitura, exibirMenu, result);
+				break;
 			default: throw new IllegalStateException("Unexpected value: " + leitura);
         }
 
@@ -66,11 +70,13 @@ public class ScreenmatchSeriesApplication implements CommandLineRunner {
 		ConsumoAPI api = new ConsumoAPI();
 		String json = api.obterDados(endereco);
 		System.out.println(json);
+		List<DadosTemporada> temporadas = new ArrayList<>();
 
-		return new Resultado(busca, api);
+
+		return new Resultado(busca, api, temporadas);
 	}
 
-	public record Resultado(String busca, ConsumoAPI api) {
+	public record Resultado(String busca, ConsumoAPI api, List<DadosTemporada> temporadas) {
 	}
 
 

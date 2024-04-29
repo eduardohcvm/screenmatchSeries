@@ -67,7 +67,13 @@ public class ExibirMenu {
         buscarEpisodio(result.busca(), temporada, episodio, result.api(), conversor);
     }
     public static void exibirMelhoresEpisodios(Scanner leitura, ExibirMenu exibirMenu, ScreenmatchSeriesApplication.Resultado result){
-       // List<DadosEpisodios> dadosEpisodios =
+
+        ConverteDados conversor = getConverteDados(result.busca(), 0, result.api());
+        for (int i = 0; i < temporadas.size(); i++) {
+            DadosTemporada dadosTemporada = temporadas.get(i);
+            System.out.println(dadosTemporada);
+            for (int j = 0; j < DadosTemporada.episodios.size(); j++) {
+                DadosEpisodios episodio = dadosTemporada.episodios.get(j);
     }
 
 
