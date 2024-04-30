@@ -21,6 +21,7 @@ public class ExibirMenu {
         json = api.obterDados(endereco);
         System.out.println(json);
         DadosTemporada dadosTemporada = conversor.obterDados(json, DadosTemporada.class);
+        dadosTemporada.temporada();
         System.out.println(dadosTemporada);
     }
 
