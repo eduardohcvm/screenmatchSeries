@@ -1,8 +1,9 @@
 package br.com.alura.screenmatchSeries;
 
 
-import br.com.alura.screenmatchSeries.model.DadosTemporada;
+import br.com.alura.screenmatchSeries.model.Episodios;
 import br.com.alura.screenmatchSeries.services.ConsumoAPI;
+import br.com.alura.screenmatchSeries.services.ConverteDados;
 import br.com.alura.screenmatchSeries.services.ExibirMenu;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -27,26 +28,24 @@ public class ScreenmatchSeriesApplication implements CommandLineRunner {
 		FileWriter escrita = new FileWriter("series.txt");
 		Scanner leitura = new Scanner(System.in);
 
-		Resultado result = getResultado(leitura);
-		System.out.println("Apartir desta serie você gostaria de exibir uma temporada e episodio específico ou listar" +
-				" todas as temporadas  e episódios?:\n Digite 1 para o primeiro ou 2 para o segundo: ");
-
-		int opcao = leitura.nextInt();
-		String buffer = leitura.nextLine();
+		System.out.println("Digite o nome da serie que voce gostaria de pesquisar: ");
+		var busca = leitura.nextLine();
 
 
+		String endereco = "https://www.omdbapi.com/?t=" + busca.replace(" ", "+") +"&apikey=825f193a";
+		ConsumoAPI api = new ConsumoAPI();
+		String json = api.obterDados(endereco);
+		System.out.println(json);
 
 
-		switch (opcao){
-			case 1:
-				ExibirMenu.exibirTemporadaEEpisodio(leitura, exibirMenu, result);
-				break;
+		System.out.println("Digite a temporada: ");
+		var temporada = leitura.nextInt();
+		ConverteDados conversor = ExibirMenu.getConverteDados(busca, temporada, api);
+		ExibirMenu.buscarTemporada(busca,temporada, api,conversor);
 
-			case 2:
-				ExibirMenu.exibirMelhoresEpisodios(leitura, exibirMenu, result);
-				break;
-			default: throw new IllegalStateException("Unexpected value: " + leitura);
-        }
+		System.out.println("Digite o episodio em que voce gostaria de analisar: ");
+		var episodio = leitura.nextInt();
+		ExibirMenu.buscarEpisodio(busca, temporada, episodio, api, conversor);
 
 
 
@@ -61,23 +60,6 @@ public class ScreenmatchSeriesApplication implements CommandLineRunner {
 
 
 
-	private static Resultado getResultado(Scanner leitura) {
-		System.out.println("Digite o nome da serie que voce gostaria de pesquisar: ");
-		var busca = leitura.nextLine();
-
-
-		String endereco = "https://www.omdbapi.com/?t=" + busca.replace(" ", "+") +"&apikey=825f193a";
-		ConsumoAPI api = new ConsumoAPI();
-		String json = api.obterDados(endereco);
-		System.out.println(json);
-		List<DadosTemporada> temporadas = new ArrayList<>();
-
-
-		return new Resultado(busca, api, temporadas);
-	}
-
-	public record Resultado(String busca, ConsumoAPI api, List<DadosTemporada> temporadas) {
-	}
 
 
 }
